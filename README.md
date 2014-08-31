@@ -8,3 +8,10 @@ This utility uses the power of Go to easily parse the json results from a ffprob
 Once this is done it is possible to create a ffmpeg command to transcode the file according to the source settings, thus avoiding audio drift and any obvious deterioration, whilst correcting the audio levels and ensuring broadcast loudness audio level compliance.
 
 Andy Rees
+
+
+	Usage of loudfixer:
+  	-autofix=false: True to automatically correct the audio levels
+  	-ebu=true: True for EBUR 128, False for ATSC A/85 RP
+  	-filename="": Full path of file to check
+  	-output="json": choose: json | xml | simple
