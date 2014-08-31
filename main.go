@@ -89,7 +89,6 @@ func get_data_from_ffprobe(filepath string) (string, error) {
 
 	json_result_bytes, err := exec.Command(ffprobe_path, "-show_format", "-show_streams", "-print_format", "json=c=1", filepath).Output()
 	if err != nil {
-		log.Fatalf("%+v", err.Error())
 		return "", err
 	}
 
