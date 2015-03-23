@@ -34,58 +34,58 @@ import (
 )
 
 type media struct {
-	streams []struct {
-		codecName     string  `json:"codec_name"`
-		bitRate       string  `json:"bit_rate"`
-		durationTs    float64 `json:"duration_ts"`
-		codecType     string  `json:"codec_type"`
-		codecTimeBase string  `json:"codec_time_base"`
-		profile       string  `json:"Profile"`
-		tags          struct {
-			language         string `json:"language"`
-			majorBrand       string `json:"major_brand"`
-			minorVersion     string `json:"minor_version"`
-			compatibleBrands string `json:"compatible_brands"`
-			handlerName      string `json:"handler_name"`
+	Streams []struct {
+		CodecName     string  `json:"codec_name"`
+		BitRate       string  `json:"bit_rate"`
+		DurationTs    float64 `json:"duration_ts"`
+		CodecType     string  `json:"codec_type"`
+		CodecTimeBase string  `json:"codec_time_base"`
+		Profile       string  `json:"Profile"`
+		Tags          struct {
+			Language         string `json:"language"`
+			MajorBrand       string `json:"major_brand"`
+			MinorVersion     string `json:"minor_version"`
+			CompatibleBrands string `json:"compatible_brands"`
+			HandlerName      string `json:"handler_name"`
 		}
-		duration           string  `json:"duration"`
-		index              float64 `json:"index"`
-		sampleAspectRatio  string  `json:"sample_aspect_ratio"`
-		codecTag           string  `json:"codec_tag"`
-		codecTagString     string  `json:"codec_tag_string"`
-		startPts           float64 `json:"start_pts"`
-		sampleRate         string  `json:"sample_rate"`
-		nbFrames           string  `json:"nb_frames"`
-		avgFrameRate       string  `json:"avg_frame_rate"`
-		codecLongName      string  `json:"codec_long_name"`
-		displayAspectRatio string  `json:"display_aspect_ratio"`
-		level              float64 `json:"level"`
-		hasBFrames         float64 `json:"has_b_frames"`
-		pixFmt             string  `json:"pix_fmt"`
-		timeBase           string  `json:"time_base"`
-		height             float64 `json:"height"`
-		bitsPerSample      float64 `json:"bits_per_sample"`
-		width              float64 `json:"width"`
-		sampleFmt          string  `json:"sample_fmt"`
-		startTime          string  `json:"start_time"`
-		channels           float64 `json:"channels"`
-		rFrameRate         string  `json:"r_frame_rate"`
+		Duration           string  `json:"duration"`
+		Index              float64 `json:"index"`
+		SampleAspectRatio  string  `json:"sample_aspect_ratio"`
+		CodecTag           string  `json:"codec_tag"`
+		CodecTagString     string  `json:"codec_tag_string"`
+		StartPts           float64 `json:"start_pts"`
+		SampleRate         string  `json:"sample_rate"`
+		NbFrames           string  `json:"nb_frames"`
+		AvgFrameRate       string  `json:"avg_frame_rate"`
+		CodecLongName      string  `json:"codec_long_name"`
+		DisplayAspectRatio string  `json:"display_aspect_ratio"`
+		Level              float64 `json:"level"`
+		HasBFrames         float64 `json:"has_b_frames"`
+		PixFmt             string  `json:"pix_fmt"`
+		TimeBase           string  `json:"time_base"`
+		Height             float64 `json:"height"`
+		BitsPerSample      float64 `json:"bits_per_sample"`
+		Width              float64 `json:"width"`
+		SampleFmt          string  `json:"sample_fmt"`
+		StartTime          string  `json:"start_time"`
+		Channels           float64 `json:"channels"`
+		RFrameRate         string  `json:"r_frame_rate"`
 	}
-	format struct {
-		formatName     string `json:"format_name"`
-		formatLongName string `json:"ormat_long_name"`
-		nbStreams      int    `json:"nb_streams"`
-		duration       string `json:"duration"`
-		startTime      string `json:"start_time"`
-		size           string `json:"size"`
-		filename       string `json:"filename"`
-		bitRate        string `json:"filename"`
-		tags           struct {
-			language         string `json:"language"`
-			majorBrand       string `json:"major_brand"`
-			minorVersion     string `json:"minor_version"`
-			compatibleBrands string `json:"compatible_brands"`
-			handlerName      string `json:"handler_name"`
+	Format struct {
+		FormatName     string `json:"format_name"`
+		FormatLongName string `json:"ormat_long_name"`
+		NbStreams      int    `json:"nb_streams"`
+		Duration       string `json:"duration"`
+		StartTime      string `json:"start_time"`
+		Size           string `json:"size"`
+		Filename       string `json:"filename"`
+		BitRate        string `json:"filename"`
+		Tags           struct {
+			Language         string `json:"language"`
+			MajorBrand       string `json:"major_brand"`
+			MinorVersion     string `json:"minor_version"`
+			CompatibleBrands string `json:"compatible_brands"`
+			HandlerName      string `json:"handler_name"`
 		}
 	}
 }
@@ -113,12 +113,12 @@ func getDataFromFfprobe(filepath string) (string, error) {
 }
 
 type mediaFileLoudness struct {
-	fileName                    string
-	passedOrFailed              bool
-	loudness                    string
-	recommendedAdjustment       float64
-	recommendedAdjustmentString string
-	standard                    string
+	FileName                    string
+	PassedOrFailed              bool
+	Loudness                    string
+	RecommendedAdjustment       float64
+	RecommendedAdjustmentString string
+	Standard                    string
 }
 
 // This method takes an absolute file path and passes it to ffmpeg,
@@ -214,25 +214,25 @@ func main() {
 	json.Unmarshal([]byte(sourceSettings), &m)
 
 	var (
-		acodec          string
-		audioBitRate    string
-		audioChannels   float64
-		audioSampleRate string
+		Acodec          string
+		AudioBitRate    string
+		AudioChannels   float64
+		AudioSampleRate string
 	)
 
-	for _, stream := range m.streams {
-		if stream.codecType == "audio" {
+	for _, stream := range m.Streams {
+		if stream.CodecType == "audio" {
 			// log.Printf("AUDIO CODEC: %+v\n", stream.Codec_name)
-			acodec = stream.codecName
+			Acodec = stream.CodecName
 
 			// log.Printf("AUDIO BITRATE: %+v\n", stream.Bit_rate)
-			audioBitRate = stream.bitRate
+			AudioBitRate = stream.BitRate
 
 			// log.Printf("AUDIO SAMPLE RATE: %+v\n", stream.Sample_rate)
-			audioSampleRate = stream.sampleRate
+			AudioSampleRate = stream.SampleRate
 
 			// log.Printf("AUDIO Channels: %+v\n", stream.Channels)
-			audioChannels = stream.channels
+			AudioChannels = stream.Channels
 		}
 	}
 
@@ -250,12 +250,12 @@ func main() {
 	}
 
 	mf := mediaFileLoudness{}
-	mf.fileName = path.Base(*checkFile)
-	mf.passedOrFailed = passed
-	mf.loudness = loudness
-	mf.recommendedAdjustment = adjustment
-	mf.recommendedAdjustmentString = fmt.Sprintf("%.1fdB", adjustment)
-	mf.standard = std
+	mf.FileName = path.Base(*checkFile)
+	mf.PassedOrFailed = passed
+	mf.Loudness = loudness
+	mf.RecommendedAdjustment = adjustment
+	mf.RecommendedAdjustmentString = fmt.Sprintf("%.1fdB", adjustment)
+	mf.Standard = std
 
 	fname := path.Base(*checkFile)
 	fdir := path.Dir(*checkFile)
@@ -281,7 +281,7 @@ func main() {
 		os.Stdout.Write(xmlObj)
 		fmt.Println("")
 	case "simple":
-		fmt.Fprintf(os.Stdout, "%s\nLoudness: %s\nAdjustment: %s\nPassed=%t\n", mf.fileName, mf.loudness, mf.recommendedAdjustmentString, mf.passedOrFailed)
+		fmt.Fprintf(os.Stdout, "%s\nLoudness: %s\nAdjustment: %s\nPassed=%t\n", mf.FileName, mf.Loudness, mf.RecommendedAdjustmentString, mf.PassedOrFailed)
 	default:
 		fmt.Println("File checked to loudness standard: ", std)
 		if passed {
@@ -312,13 +312,13 @@ func main() {
 				"-vcodec",
 				"copy",
 				"-acodec",
-				fmt.Sprintf("%s", acodec),
+				fmt.Sprintf("%s", Acodec),
 				"-b:a",
-				fmt.Sprintf("%v", audioBitRate),
+				fmt.Sprintf("%v", AudioBitRate),
 				"-ac",
-				fmt.Sprintf("%v", audioChannels),
+				fmt.Sprintf("%v", AudioChannels),
 				"-ar",
-				fmt.Sprintf("%v", audioSampleRate),
+				fmt.Sprintf("%v", AudioSampleRate),
 				"-strict",
 				"experimental",
 				"-q:v",
@@ -326,7 +326,7 @@ func main() {
 				"-q:a",
 				"1",
 				"-filter_complex",
-				fmt.Sprintf("volume=volume=%s", mf.recommendedAdjustmentString),
+				fmt.Sprintf("volume=volume=%s", mf.RecommendedAdjustmentString),
 				"-y",
 				fmt.Sprintf("%s", outfile),
 			)
